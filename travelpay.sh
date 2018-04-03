@@ -29,6 +29,7 @@ function compile_node() {
   cd $TMP_FOLDER
   chmod +x ./autogen.sh 
   chmod +x ./share/genbuild.sh
+  chmod +x ./src/leveldb/build_detect_platform
   ./autogen.sh
   compile_error
   ./configure
