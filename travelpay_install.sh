@@ -9,7 +9,7 @@ COIN_PATH='/usr/local/bin/'
 COIN_REPO='https://github.com/TravelPay/TravelPay.git'
 COIN_TGZ='https://github.com/HiredHeist/tptest/blob/master/travelpay.tgz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
-COIN_NAME='TravelPay'
+COIN_NAME='travelpay'
 COIN_PORT=35160
 RPC_PORT=35161
 
@@ -59,7 +59,7 @@ function download_node() {
 function ask_permission() {
  echo -e "${RED}I trust travelpay and want to use$ $COIN_NAME binaries compiled on his server.${NC}."
  echo -e "Please type ${RED}YES${NC} if you want to use precompiled binaries, or type anything else to compile them on your server"
- read -e TRAVELPAY
+ read -e travelpay
  clear
 }
 
@@ -294,7 +294,7 @@ clear
 checks
 prepare_system
 ask_permission
-if [[ "$TRAVELPAY" == "YES" ]]; then
+if [[ "$travelpay" == "YES" ]]; then
   download_node
 else
   create_swap
