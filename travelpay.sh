@@ -7,7 +7,7 @@ COIN_DAEMON='travelpayd'
 COIN_CLI='travelpay-cli'
 COIN_PATH='/usr/local/bin/'
 COIN_REPO='https://github.com/TravelPay/TravelPay.git'
-COIN_TGZ='https://github.com/HiredHeist/tptest/travelpay.tgz'
+COIN_TGZ='https://github.com/TravelPay/TravelPay/releases/download/v1.0.0/travelpay-1.0.0-aarch64-linux-gnu.zip'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='travelpay'
 COIN_PORT=35160
@@ -48,8 +48,9 @@ function download_node() {
   echo -e "Prepare to download $COIN_NAME binaries"
   cd $TMP_FOLDER
   wget -q $COIN_TGZ
-  tar xvzf $COIN_ZIP >/dev/null 2>&1
+  unzip -j $COIN_ZIP >/dev/null 2>&1
   compile_error
+  chmod +x $COIN_DAEMON $COIN_CLI
   cp $COIN_DAEMON $COIN_CLI $COIN_PATH 
   chmod +x $COIN_PATH$COIN_DAEMON $COIN_PATH$COIN_CLI
   cd - >/dev/null 2>&1
@@ -226,7 +227,7 @@ echo -e "${GREEN}Adding bitcoin PPA repository"
 apt-add-repository -y ppa:bitcoin/bitcoin >/dev/null 2>&1
 echo -e "Installing required packages, it may take some time to finish.${NC}"
 apt-get update >/dev/null 2>&1
-apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" make software-properties-common \
+apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" make software-properties-common unzip \
 build-essential libtool autoconf libssl-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-program-options-dev \
 libboost-system-dev libboost-test-dev libboost-thread-dev sudo automake git wget curl libdb4.8-dev bsdmainutils libdb4.8++-dev \
 libminiupnpc-dev libgmp3-dev ufw pkg-config libevent-dev  libdb5.3++ jq >/dev/null 2>&1
